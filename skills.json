@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "repository": "mii-ai-security",
+  "primary_sections": [
+    {
+      "id": "core-llm-prompt-security",
+      "title": "Core LLM Prompt Security",
+      "path": "skills/core-llm-prompt-security/SKILL.md",
+      "tags": ["prompt-injection", "jailbreaks", "system-prompts", "guardrails"],
+      "controls": ["1.1 Prompt Injection Defense", "1.2 Output Validation and Guardrails"]
+    },
+    {
+      "id": "rag-security",
+      "title": "Retrieval Augmented Generation Security",
+      "path": "skills/rag-security/SKILL.md",
+      "tags": ["retrieval", "vector-db", "chunking", "grounding", "indexing"],
+      "controls": ["2.1 Source Grounding and Hallucination Mitigation", "2.2 Data Leakage Prevention"]
+    },
+    {
+      "id": "tool-use-execution-security",
+      "title": "Tool Use and Execution Security",
+      "path": "skills/tool-use-execution-security/SKILL.md",
+      "tags": ["agents", "tools", "sandboxing", "code-execution", "permissions"],
+      "controls": ["3.1 Function Calling Authorization", "3.2 Output Execution Sandboxing"]
+    },
+    {
+      "id": "system-infrastructure-security",
+      "title": "System and Infrastructure Security",
+      "path": "skills/system-infrastructure-security/SKILL.md",
+      "tags": ["runtime", "network", "supply-chain", "secrets", "observability"],
+      "controls": ["4.1 Rate Limiting and Throttling", "4.2 Logging and Auditing"]
+    }
+  ],
+  "companion_skills": [
+    {
+      "id": "data-leakage-prevention",
+      "title": "Data Leakage Prevention",
+      "path": "skills/data-leakage-prevention/SKILL.md",
+      "tags": ["pii", "secrets", "multitenancy", "redaction", "egress"],
+      "supports": ["2.2 Data Leakage Prevention", "4.2 Logging and Auditing"]
+    }
+  ],
+  "framework_subskills": [
+    {
+      "id": "langchain-rag-security",
+      "title": "LangChain RAG Security",
+      "path": "skills/langchain-rag-security/SKILL.md",
+      "framework": "LangChain",
+      "extends": "rag-security",
+      "tags": ["langchain", "rag", "retrievers", "memory", "callbacks"]
+    },
+    {
+      "id": "llamaindex-rag-security",
+      "title": "LlamaIndex RAG Security",
+      "path": "skills/llamaindex-rag-security/SKILL.md",
+      "framework": "LlamaIndex",
+      "extends": "rag-security",
+      "tags": ["llamaindex", "rag", "nodes", "query-engine", "postprocessors"]
+    },
+    {
+      "id": "semantic-kernel-tool-security",
+      "title": "Semantic Kernel Tool Security",
+      "path": "skills/semantic-kernel-tool-security/SKILL.md",
+      "framework": "Semantic Kernel",
+      "extends": "tool-use-execution-security",
+      "tags": ["semantic-kernel", "plugins", "planners", "function-calling", "sandboxing"]
+    }
+  ]
+}
