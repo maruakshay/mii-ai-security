@@ -26,3 +26,10 @@ Use this reference to normalize findings across skills.
 - Include the exact trust boundary crossed.
 - Name the vulnerable prompt, retriever, tool, connector, API, or infrastructure component.
 - Prefer concrete attack steps over generic warnings.
+
+## Operational Finding Hints
+
+- Treat missing rollback for model or guardrail changes as at least `High` when production impact is plausible.
+- Treat audit-log gaps that block forensic reconstruction or regulated review as at least `High`.
+- Treat unsafe agent-to-agent privilege spread or unbounded tool autonomy as `Critical` when they can trigger direct actions.
+- Treat unmanaged memory persistence as `High` or `Critical` depending on whether it can create durable cross-session influence.

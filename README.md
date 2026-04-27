@@ -16,6 +16,7 @@ The repo provides:
 - a machine-readable index for automation and CI workflows, including control severity and review-date metadata
 - lightweight scripts for fetching and validating skills
 - canonical adversarial prompt-injection fixtures for repeatable testing
+- reference mappings to OWASP LLM risks and MITRE ATLAS themes for enterprise security conversations
 
 ## The Five Pillars
 
@@ -241,9 +242,12 @@ skills/
   llamaindex-rag-security/
   semantic-kernel-tool-security/
 references/
+  framework-mappings.md
   languages-and-frameworks.md
   severity-and-reporting.md
   test-patterns.md
+red-team-scripts/
+  README.md
 scripts/
   fetch-skill.sh
   list-skills.sh
@@ -280,6 +284,10 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR. New skills should s
 ## Roadmap
 
 Read [ROADMAP.md](ROADMAP.md) for planned skills, unowned attack surfaces, and larger investments that are not yet implemented in the repository.
+
+## Framework Mappings
+
+Read [references/framework-mappings.md](references/framework-mappings.md) for a directional crosswalk from skill IDs to OWASP LLM risks and MITRE ATLAS-aligned threat themes.
 
 ## Security
 

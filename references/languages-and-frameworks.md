@@ -23,6 +23,14 @@ Use this reference when the assessment needs stack-specific examples or attack s
 - OpenAI Assistants API: review legacy threads, runs, attachments, and migration risk for deprecated integrations.
 - Custom SDK implementations: map inputs, prompts, model calls, tools, outputs, storage, and audit logs.
 
+## Related Skills
+
+- Prompt and output boundaries: `core-llm-prompt-security`, `indirect-prompt-injection`, `multimodal-security`
+- Retrieval and context scoping: `rag-security`, `langchain-rag-security`, `llamaindex-rag-security`, `haystack-rag-security`
+- Tooling and agent execution: `tool-use-execution-security`, `semantic-kernel-tool-security`, `openai-responses-tool-file-security`, `openai-assistants-legacy-security`, `agentic-trust-boundaries`
+- Program and optimization safety: `dspy-program-security`, `memory-security`
+- Operations and governance: `system-infrastructure-security`, `model-supply-chain-security`, `ai-governance-and-incident-response`
+
 ## Portable Review Questions
 
 - Where is untrusted content first accepted?
