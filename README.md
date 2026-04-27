@@ -40,19 +40,26 @@ The repository currently ships 18 skills across four buckets:
 
 ## Quick Start
 
-List skills:
+Add a skill to your project (no clone needed):
 
 ```bash
-./scripts/list-skills.sh
+npx miii-security add rag-security
+# copies to .claude/skills/rag-security/SKILL.md
 ```
 
-Fetch a skill:
+List all available skills:
 
 ```bash
-./scripts/fetch-skill.sh rag-security
+npx miii-security list
 ```
 
-Validate the repo:
+Print a skill to stdout:
+
+```bash
+npx miii-security show rag-security
+```
+
+Validate the repo (contributors only):
 
 ```bash
 python3 scripts/validate_repo.py

@@ -1,0 +1,42 @@
+{
+  "name": "miii-security",
+  "version": "1.0.0",
+  "description": "Security-focused `SKILL.md` packs for reviewing and hardening LLM systems.",
+  "homepage": "https://github.com/maruakshay/mii-ai-security#readme",
+  "bugs": {
+    "url": "https://github.com/maruakshay/mii-ai-security/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maruakshay/mii-ai-security.git"
+  },
+  "license": "MIT",
+  "author": "Akshay Maru",
+  "type": "module",
+  "main": "bin/cli.js",
+  "bin": {
+    "miii-security": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "skills.json"
+  ],
+  "keywords": [
+    "ai-security",
+    "llm-security",
+    "claude-code",
+    "skills",
+    "prompt-injection",
+    "rag-security"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
