@@ -30,7 +30,7 @@ This roadmap tracks what is already covered, what is planned, and which security
 - `browser-use-security`
   Focus: browser automation, computer-use flows, DOM injection, session token exposure, and confirmation bypass in UI-driven agents.
   Status: planned, unowned.
-  Starter deliverables: one base skill, one fixture set for DOM or page-content injection, and one example trust-boundary diagram.
+  Starter deliverables: one subskill extending `tool-use-execution-security`, one fixture set for DOM or page-content injection, and one example trust-boundary diagram.
 
 - `remote-mcp-security`
   Focus: remote MCP server trust, connector authorization, tool discovery scoping, and data exfiltration through third-party capability servers.

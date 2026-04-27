@@ -30,8 +30,7 @@ Each script should emit machine-readable results containing:
 red-team-scripts/
   README.md
   adapters/
-  fixtures/
-  results/
+  examples/
 ```
 
 ## First Deliverables
@@ -44,4 +43,6 @@ red-team-scripts/
 
 - Do not hardcode secrets, API keys, or tenant data in scripts.
 - Treat all captured results as potentially sensitive.
+- Keep the canonical attack corpus in `tests/adversarial-fixtures/`; do not create a second fixture source inside `red-team-scripts/`.
+- Write captured results only to an ignored local path or external artifact store, not to a checked-in repository directory.
 - Keep the first scripts deterministic and fixture-driven before adding autonomous attack logic.
