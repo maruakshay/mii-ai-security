@@ -6,59 +6,93 @@ last_reviewed: 2026-04-27
 
 # Retrieval Augmented Generation Security
 
-Use this skill when the system indexes content, performs retrieval, or grounds model responses on external knowledge. This section addresses vulnerabilities introduced by vector stores, databases, and external corpora.
+## First Principle
+
+**Every retrieved document is a potential attacker input. The retrieval system is an attack surface as large as your corpus.**
+
+RAG systems were designed to extend LLM knowledge with external data. That same mechanism — injecting external text into the prompt — is the canonical indirect prompt injection path. The document the model trusts most is the document the attacker poisons first. The scope of what can be retrieved defines the blast radius of every injection in your corpus.
+
+## Attack Mental Model
+
+Attackers targeting RAG systems operate on two surfaces:
+
+1. **Ingestion poisoning** — inject malicious content into documents before they enter the vector store. When a user asks a related question, the poisoned chunk is retrieved and executed as context.
+2. **Retrieval boundary violation** — exploit weak or missing metadata filters to retrieve documents the user was never authorized to see (cross-tenant, cross-classification, stale data).
+
+The attacker does not need account credentials. They need a document that scores high on semantic similarity to a predictable query.
 
 ## Control Lens
 
-- Validate: I check every piece of data coming into the system, including ingested documents, metadata, chunk boundaries, retrieval results, reranker output, and final prompt context.
-- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by constraining retrieval to authorized documents, approved metadata filters, and grounded source sets.
-- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot expand from a poisoned or over-broad retrieval result into unrestricted data access or core data stores.
-- Enforce: I use deterministic code such as metadata checks, citation verification, JSON schema validation, and typed response handling to validate grounded output instead of trusting citation-shaped text or model claims.
+| Principle | What It Means Here |
+|---|---|
+| **Validate** | Every ingested document, metadata field, chunk boundary, retrieval result, and reranker output is checked before it influences a prompt or response. |
+| **Scope** | Retrieval is bounded to authorized documents, approved metadata filters, and the current user's data class — enforced at the datastore, not in the prompt. |
+| **Isolate** | A poisoned or over-broad retrieval result cannot cascade into unrestricted data access, privilege escalation, or persistent memory writes. |
+| **Enforce** | Citations are verified server-side against the actual retrieved set. Model claims about sources are not trusted as proof of grounding. |
 
-## 2.1 Source Grounding And Hallucination Mitigation
+## 2.1 Source Grounding and Hallucination Mitigation
 
-Skill: Citation verification and confidence scoring.
+**The core vulnerability:** The model will generate confident-sounding text regardless of whether its retrieved context supports the claim. If you do not verify citations against the actual retrieved set, you have no grounding — you have hallucination dressed as sourcing.
 
-Check:
-- Every factual claim made by the LLM must be directly traceable to a retrieved document chunk.
-- The system must detect when retrieval quality is too weak to support a grounded answer.
+### Check
 
-Action:
-- Citation mandate: require the LLM to emit citations in the response format, for example `[Source: Doc_A, p. 3]`.
-- Server-side verification: validate every emitted citation against the actual retrieved chunk set and reject citations that do not map to the retrieved evidence.
-- Confidence scoring: implement a score that penalizes answers when retrieved chunks are highly disparate, low relevance, stale, or contradictory.
-- If grounding fails, the required response is: `I cannot answer this question with the provided documentation.`
+- Does every factual claim trace to a specific retrieved chunk by ID, not just by model assertion?
+- Is citation verification done in application code, not by asking the model to self-verify?
+- Does the system define a minimum retrieval confidence threshold below which it refuses to answer?
 
-Failure Mode:
-- If the answer cannot be grounded to retrieved evidence, do not allow the model to improvise.
-- Do not treat citation-shaped text as proof of grounding unless the application verifies it against the retrieved source set.
+### Action
 
-## 2.2 Data Leakage Prevention (The Gatekeeper)
+- **Citation mandate:** Require the model to emit structured citations in the response schema: `{"answer": "...", "citations": [{"chunk_id": "...", "doc_id": "..."}]}`
+- **Server-side citation verification:** After the response is generated, resolve every emitted `chunk_id` against the actual retrieved set for this request. Reject or flag responses citing chunks that were not retrieved.
+- **Confidence gate:** Compute a retrieval confidence score (e.g., mean similarity of top-k chunks). If it falls below threshold, emit the required refusal: `I cannot answer this question with the available documentation.`
+- Never allow the model to answer from chat history, model prior, or memory when the configured mode is documentation-grounded only.
 
-Skill: Access control and data masking.
+```python
+# Server-side citation verification (pseudocode)
+retrieved_ids = {chunk.id for chunk in retrieved_chunks}
+for citation in response.citations:
+    if citation.chunk_id not in retrieved_ids:
+        raise CitationHallucinationError(citation)
+```
 
-Check:
-- The system must only retrieve data relevant to the user's explicit query scope.
-- Retrieved source chunks must be screened for PII and other restricted data before they are exposed to the model.
+### Failure Modes
 
-Action:
-- Query rewriting: before querying the vector store, rewrite the request into precise scoped filters such as `user_department=HR` or `document_type=Policy`.
-- PII masking: implement a final masking layer that redacts or masks PII in retrieved chunks before they are passed to the LLM.
-- Enforce authorization at retrieval time and again when assembling the prompt context.
+- Model cites `[Source: Policy_v2.pdf, p. 4]` but that document was not retrieved — the citation was fabricated.
+- Retrieval confidence is low (all chunks are tangentially related) but the system answers anyway.
+- Chat history from a prior session silently overrides retrieved evidence.
 
-Minimum Output:
-- RAG dataflow with ingestion, indexing, retrieval, reranking, and prompt assembly boundaries
-- Citation and confidence policy
-- Query-scoping and masking controls
-- Clear fallback behavior when grounding or scope enforcement fails
+## 2.2 Data Leakage Prevention
 
-Best Practice:
-- Preserve provenance and sensitivity metadata through the full pipeline.
-- Treat uploaded and indexed documents as untrusted until validated and attributed.
+**The core vulnerability:** Vector search is semantic, not access-controlled by default. A query for "vacation policy" may retrieve HR documents from every tenant in a multi-tenant index. The filter is only as strong as the code that sets it — and if that code runs in application layer, a prompt injection can bypass it.
+
+### Check
+
+- Are metadata filters for tenant, user, document class, and sensitivity enforced server-side at the vector store — not only in the prompt or application logic?
+- Is PII screened from retrieved chunks before they enter the prompt context?
+- Are sensitivity and provenance metadata preserved through chunking, re-embedding, and reindexing?
+
+### Action
+
+- **Query scoping:** Before querying the vector store, construct strict metadata filters: `{"tenant_id": current_user.tenant, "doc_class": {"$in": user.authorized_classes}}`. Pass these as server-enforced filter parameters, not as soft instructions.
+- **PII masking:** Apply a masking pipeline to retrieved chunks before prompt assembly. Mask, do not strip — preserve the structure while redacting sensitive fields.
+- **Provenance persistence:** Ensure chunking, re-embedding, and reindexing pipelines carry `doc_id`, `sensitivity`, `owner`, and `created_at` through every transformation. A chunk without provenance metadata cannot be correctly scoped.
+- **Double enforcement:** Check authorization at ingestion time (does this document belong in this tenant's index?) and at retrieval time (is this user allowed to see this chunk?).
+
+### Minimum Deliverable Per Review
+
+- [ ] RAG dataflow diagram: ingestion → chunking → indexing → retrieval → reranking → prompt assembly → response
+- [ ] Citation policy and server-side verification path
+- [ ] Query-scoping filter construction and enforcement point (server-side vs. application-side)
+- [ ] PII masking pipeline and fields masked
+- [ ] Fallback behavior when confidence threshold is not met
+
+## Quick Win
+
+**Add server-side metadata filters immediately.** If your vector store queries do not pass a tenant or user scope filter as a hard parameter — not a soft prompt instruction — your retrieval boundary exists only in convention. One prompt injection can bypass it.
 
 ## References
 
-- For stack-specific review notes, read [languages-and-frameworks.md](../../references/languages-and-frameworks.md).
-- For severity wording, read [severity-and-reporting.md](../../references/severity-and-reporting.md).
-- For repeatable attack cases, read [test-patterns.md](../../references/test-patterns.md).
-- For deeper leakage controls outside retrieval, read [data-leakage-prevention/SKILL.md](../data-leakage-prevention/SKILL.md).
+- Framework-specific review notes → [languages-and-frameworks.md](../../references/languages-and-frameworks.md)
+- Severity wording → [severity-and-reporting.md](../../references/severity-and-reporting.md)
+- Repeatable attack cases → [test-patterns.md](../../references/test-patterns.md)
+- Deeper leakage controls → [data-leakage-prevention/SKILL.md](../data-leakage-prevention/SKILL.md)
