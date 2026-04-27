@@ -17,6 +17,27 @@ The repository currently ships 18 skills across four buckets:
 - Framework subskills: LangChain, LlamaIndex, Haystack, DSPy, Semantic Kernel, and OpenAI-hosted APIs
 - Test and reference material: adversarial fixtures, severity guidance, framework notes, and OWASP or MITRE-aligned mappings
 
+## Skill List
+
+- `core-llm-prompt-security`
+- `rag-security`
+- `tool-use-execution-security`
+- `system-infrastructure-security`
+- `data-leakage-prevention`
+- `agentic-trust-boundaries`
+- `memory-security`
+- `model-supply-chain-security`
+- `indirect-prompt-injection`
+- `multimodal-security`
+- `ai-governance-and-incident-response`
+- `dspy-program-security`
+- `haystack-rag-security`
+- `langchain-rag-security`
+- `llamaindex-rag-security`
+- `semantic-kernel-tool-security`
+- `openai-responses-tool-file-security`
+- `openai-assistants-legacy-security`
+
 ## Quick Start
 
 List skills:
