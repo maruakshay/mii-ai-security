@@ -1,34 +1,82 @@
 {
-  "version": 1,
+  "version": 2,
   "repository": "mii-ai-security",
   "primary_sections": [
     {
       "id": "core-llm-prompt-security",
       "title": "Core LLM Prompt Security",
       "path": "skills/core-llm-prompt-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "tags": ["prompt-injection", "jailbreaks", "system-prompts", "guardrails"],
-      "controls": ["1.1 Prompt Injection Defense", "1.2 Output Validation and Guardrails"]
+      "controls": [
+        {
+          "id": "1.1",
+          "title": "Prompt Injection Defense",
+          "severity": "high"
+        },
+        {
+          "id": "1.2",
+          "title": "Output Validation and Guardrails",
+          "severity": "high"
+        }
+      ]
     },
     {
       "id": "rag-security",
       "title": "Retrieval Augmented Generation Security",
       "path": "skills/rag-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "tags": ["retrieval", "vector-db", "chunking", "grounding", "indexing"],
-      "controls": ["2.1 Source Grounding and Hallucination Mitigation", "2.2 Data Leakage Prevention"]
+      "controls": [
+        {
+          "id": "2.1",
+          "title": "Source Grounding and Hallucination Mitigation",
+          "severity": "medium"
+        },
+        {
+          "id": "2.2",
+          "title": "Data Leakage Prevention",
+          "severity": "high"
+        }
+      ]
     },
     {
       "id": "tool-use-execution-security",
       "title": "Tool Use and Execution Security",
       "path": "skills/tool-use-execution-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "tags": ["agents", "tools", "sandboxing", "code-execution", "permissions"],
-      "controls": ["3.1 Function Calling Authorization", "3.2 Output Execution Sandboxing"]
+      "controls": [
+        {
+          "id": "3.1",
+          "title": "Function Calling Authorization",
+          "severity": "critical"
+        },
+        {
+          "id": "3.2",
+          "title": "Output Execution Sandboxing",
+          "severity": "critical"
+        }
+      ]
     },
     {
       "id": "system-infrastructure-security",
       "title": "System and Infrastructure Security",
       "path": "skills/system-infrastructure-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "tags": ["runtime", "network", "supply-chain", "secrets", "observability"],
-      "controls": ["4.1 Rate Limiting and Throttling", "4.2 Logging and Auditing"]
+      "controls": [
+        {
+          "id": "4.1",
+          "title": "Rate Limiting and Throttling",
+          "severity": "medium"
+        },
+        {
+          "id": "4.2",
+          "title": "Logging and Auditing",
+          "severity": "medium"
+        }
+      ]
     }
   ],
   "companion_skills": [
@@ -36,34 +84,285 @@
       "id": "data-leakage-prevention",
       "title": "Data Leakage Prevention",
       "path": "skills/data-leakage-prevention/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "tags": ["pii", "secrets", "multitenancy", "redaction", "egress"],
+      "controls": [
+        {
+          "id": "DLP.1",
+          "title": "Core Leakage Controls",
+          "severity": "high"
+        }
+      ],
       "supports": ["2.2 Data Leakage Prevention", "4.2 Logging and Auditing"]
+    },
+    {
+      "id": "agentic-trust-boundaries",
+      "title": "Agentic Trust Boundaries",
+      "path": "skills/agentic-trust-boundaries/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "tags": ["multi-agent", "orchestration", "delegation", "trust-boundaries", "planner"],
+      "controls": [
+        {
+          "id": "ATB.1",
+          "title": "Agent-to-Agent Trust Separation",
+          "severity": "critical"
+        },
+        {
+          "id": "ATB.2",
+          "title": "Cross-Agent Action Containment",
+          "severity": "critical"
+        }
+      ],
+      "supports": ["3.1 Function Calling Authorization", "3.2 Output Execution Sandboxing"]
+    },
+    {
+      "id": "memory-security",
+      "title": "Memory Security",
+      "path": "skills/memory-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "tags": ["memory", "episodic", "persistent-state", "retrieval", "poisoning"],
+      "controls": [
+        {
+          "id": "MEM.1",
+          "title": "Memory Write Validation",
+          "severity": "high"
+        },
+        {
+          "id": "MEM.2",
+          "title": "Persistent Influence Containment",
+          "severity": "critical"
+        }
+      ],
+      "supports": ["2.2 Data Leakage Prevention", "4.2 Logging and Auditing"]
+    },
+    {
+      "id": "model-supply-chain-security",
+      "title": "Model Supply Chain Security",
+      "path": "skills/model-supply-chain-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "tags": ["model-supply-chain", "fine-tuning", "backdoors", "third-party-models", "trojans"],
+      "controls": [
+        {
+          "id": "MSC.1",
+          "title": "Model Provenance and Integrity",
+          "severity": "high"
+        },
+        {
+          "id": "MSC.2",
+          "title": "Backdoor and Trojan Exposure Review",
+          "severity": "critical"
+        }
+      ],
+      "supports": ["4.1 Rate Limiting and Throttling", "4.2 Logging and Auditing"]
+    },
+    {
+      "id": "indirect-prompt-injection",
+      "title": "Indirect Prompt Injection",
+      "path": "skills/indirect-prompt-injection/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "tags": ["indirect-injection", "documents", "email", "web-content", "api-responses"],
+      "controls": [
+        {
+          "id": "IPI.1",
+          "title": "Untrusted Content Labeling and Filtering",
+          "severity": "high"
+        },
+        {
+          "id": "IPI.2",
+          "title": "Retrieved Instruction Neutralization",
+          "severity": "critical"
+        }
+      ],
+      "supports": ["1.1 Prompt Injection Defense", "2.1 Source Grounding and Hallucination Mitigation"]
+    },
+    {
+      "id": "multimodal-security",
+      "title": "Multimodal Security",
+      "path": "skills/multimodal-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "tags": ["multimodal", "vision", "ocr", "hidden-text", "adversarial-images"],
+      "controls": [
+        {
+          "id": "MM.1",
+          "title": "Image and OCR Input Validation",
+          "severity": "high"
+        },
+        {
+          "id": "MM.2",
+          "title": "Multimodal Instruction Boundary Enforcement",
+          "severity": "high"
+        }
+      ],
+      "supports": ["1.1 Prompt Injection Defense", "2.2 Data Leakage Prevention"]
+    },
+    {
+      "id": "ai-governance-and-incident-response",
+      "title": "AI Governance and Incident Response",
+      "path": "skills/ai-governance-and-incident-response/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "tags": ["governance", "rollback", "change-management", "audit", "incident-response"],
+      "controls": [
+        {
+          "id": "GOV.1",
+          "title": "Model and Guardrail Change Governance",
+          "severity": "high"
+        },
+        {
+          "id": "GOV.2",
+          "title": "AI Incident Response and Regulated Audit Readiness",
+          "severity": "critical"
+        }
+      ],
+      "supports": ["4.2 Logging and Auditing"]
     }
   ],
   "framework_subskills": [
     {
+      "id": "dspy-program-security",
+      "title": "DSPy Program Security",
+      "path": "skills/dspy-program-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "framework": "DSPy",
+      "extends": "core-llm-prompt-security",
+      "tags": ["dspy", "signatures", "optimizers", "teleprompters", "evaluation"],
+      "controls": [
+        {
+          "id": "1.1",
+          "title": "Prompt Program and Optimizer Boundary Review in DSPy",
+          "severity": "high"
+        },
+        {
+          "id": "1.2",
+          "title": "Typed Output and Tool Wrapper Enforcement in DSPy",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "haystack-rag-security",
+      "title": "Haystack RAG Security",
+      "path": "skills/haystack-rag-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "framework": "Haystack",
+      "extends": "rag-security",
+      "tags": ["haystack", "pipelines", "retrievers", "document-stores", "routers"],
+      "controls": [
+        {
+          "id": "2.1",
+          "title": "Source Grounding and Pipeline Boundary Review in Haystack",
+          "severity": "high"
+        },
+        {
+          "id": "2.2",
+          "title": "Scoped Retrieval and Store Isolation in Haystack",
+          "severity": "high"
+        }
+      ]
+    },
+    {
       "id": "langchain-rag-security",
       "title": "LangChain RAG Security",
       "path": "skills/langchain-rag-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "framework": "LangChain",
       "extends": "rag-security",
-      "tags": ["langchain", "rag", "retrievers", "memory", "callbacks"]
+      "tags": ["langchain", "rag", "retrievers", "memory", "callbacks"],
+      "controls": [
+        {
+          "id": "2.1",
+          "title": "Source Grounding and Hallucination Mitigation in LangChain",
+          "severity": "high"
+        },
+        {
+          "id": "2.2",
+          "title": "Data Leakage Prevention in LangChain",
+          "severity": "high"
+        }
+      ]
     },
     {
       "id": "llamaindex-rag-security",
       "title": "LlamaIndex RAG Security",
       "path": "skills/llamaindex-rag-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "framework": "LlamaIndex",
       "extends": "rag-security",
-      "tags": ["llamaindex", "rag", "nodes", "query-engine", "postprocessors"]
+      "tags": ["llamaindex", "rag", "nodes", "query-engine", "postprocessors"],
+      "controls": [
+        {
+          "id": "2.1",
+          "title": "Source Grounding and Hallucination Mitigation in LlamaIndex",
+          "severity": "high"
+        },
+        {
+          "id": "2.2",
+          "title": "Data Leakage Prevention in LlamaIndex",
+          "severity": "high"
+        }
+      ]
     },
     {
       "id": "semantic-kernel-tool-security",
       "title": "Semantic Kernel Tool Security",
       "path": "skills/semantic-kernel-tool-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
       "framework": "Semantic Kernel",
       "extends": "tool-use-execution-security",
-      "tags": ["semantic-kernel", "plugins", "planners", "function-calling", "sandboxing"]
+      "tags": ["semantic-kernel", "plugins", "planners", "function-calling", "sandboxing"],
+      "controls": [
+        {
+          "id": "3.1",
+          "title": "Function Calling Authorization in Semantic Kernel",
+          "severity": "critical"
+        },
+        {
+          "id": "3.2",
+          "title": "Output Execution Sandboxing in Semantic Kernel",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "openai-responses-tool-file-security",
+      "title": "OpenAI Responses Tool and File Security",
+      "path": "skills/openai-responses-tool-file-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "framework": "OpenAI Responses API",
+      "extends": "tool-use-execution-security",
+      "tags": ["openai", "responses-api", "file-search", "function-calling", "built-in-tools"],
+      "controls": [
+        {
+          "id": "3.1",
+          "title": "Hosted Tool Invocation and File Scope Review in Responses API",
+          "severity": "critical"
+        },
+        {
+          "id": "3.2",
+          "title": "Conversation State and Tool Loop Containment in Responses API",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "openai-assistants-legacy-security",
+      "title": "OpenAI Assistants Legacy Security",
+      "path": "skills/openai-assistants-legacy-security/SKILL.md",
+      "last_reviewed": "2026-04-27",
+      "framework": "OpenAI Assistants API",
+      "extends": "tool-use-execution-security",
+      "tags": ["openai", "assistants-api", "threads", "runs", "file-handling"],
+      "controls": [
+        {
+          "id": "3.1",
+          "title": "Legacy Assistant Tool and File Exposure Review",
+          "severity": "critical"
+        },
+        {
+          "id": "3.2",
+          "title": "Thread, Run, and Attachment Isolation in Assistants API",
+          "severity": "high"
+        }
+      ]
     }
   ]
 }

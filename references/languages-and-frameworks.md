@@ -19,6 +19,8 @@ Use this reference when the assessment needs stack-specific examples or attack s
 - Semantic Kernel: review plugin imports, planner behavior, function calling, memory connectors, and policy hooks.
 - Haystack: review pipelines, routers, retrievers, document stores, and evaluators.
 - DSPy: review optimizer datasets, prompt programs, tool wrappers, and evaluation leakage.
+- OpenAI Responses API: review hosted tools, file search, conversation state, function calling, and tool-loop controls.
+- OpenAI Assistants API: review legacy threads, runs, attachments, and migration risk for deprecated integrations.
 - Custom SDK implementations: map inputs, prompts, model calls, tools, outputs, storage, and audit logs.
 
 ## Portable Review Questions

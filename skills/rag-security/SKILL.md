@@ -1,11 +1,19 @@
 ---
 name: rag-security
 description: Review a retrieval augmented generation system for ingestion poisoning, retrieval boundary failures, insecure chunking and metadata handling, document trust confusion, and cross-tenant or stale-context exposure across any language or framework.
+last_reviewed: 2026-04-27
 ---
 
 # Retrieval Augmented Generation Security
 
 Use this skill when the system indexes content, performs retrieval, or grounds model responses on external knowledge. This section addresses vulnerabilities introduced by vector stores, databases, and external corpora.
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including ingested documents, metadata, chunk boundaries, retrieval results, reranker output, and final prompt context.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by constraining retrieval to authorized documents, approved metadata filters, and grounded source sets.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot expand from a poisoned or over-broad retrieval result into unrestricted data access or core data stores.
+- Enforce: I use deterministic code such as metadata checks, citation verification, JSON schema validation, and typed response handling to validate grounded output instead of trusting citation-shaped text or model claims.
 
 ## 2.1 Source Grounding And Hallucination Mitigation
 

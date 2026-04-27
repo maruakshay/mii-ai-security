@@ -11,9 +11,11 @@ AI security guidance is often either too abstract to implement or too tied to on
 The repo provides:
 
 - foundational security skills for LLM applications
-- framework-specific subskills for real stacks such as LangChain, LlamaIndex, and Semantic Kernel
-- a machine-readable index for automation and CI workflows
+- framework-specific subskills for real stacks such as LangChain, LlamaIndex, Haystack, DSPy, Semantic Kernel, and OpenAI-hosted APIs
+- dedicated skills for high-severity agentic surfaces such as multi-agent delegation, memory, indirect injection, and model supply chain risk
+- a machine-readable index for automation and CI workflows, including control severity and review-date metadata
 - lightweight scripts for fetching and validating skills
+- canonical adversarial prompt-injection fixtures for repeatable testing
 
 ## The Five Pillars
 
@@ -81,6 +83,7 @@ Mapped skills:
 
 - `tool-use-execution-security`
 - `semantic-kernel-tool-security`
+- `agentic-trust-boundaries`
 
 ### Pillar 5: Testing, Monitoring, and Governance
 
@@ -91,11 +94,29 @@ Skills covered:
 - Red teaming with adversarial prompts, encoding tricks, structural evasions, and policy bypass attempts
 - Observability for prompts, retrieved chunks, tool calls, outputs, and incidents
 - Guardrail management with version control, peer review, and explicit change control
+- Model versioning, promotion, and rollback procedures
+- Approval workflows for guardrail and policy changes
+- Audit-log requirements for regulated or high-assurance environments
+- AI-specific incident response playbooks for prompt injection, leakage, unsafe actions, and model regressions
 
 Mapped skills:
 
 - `system-infrastructure-security`
 - `data-leakage-prevention`
+- `ai-governance-and-incident-response`
+- `memory-security`
+- `model-supply-chain-security`
+- `multimodal-security`
+
+## High-Severity Agentic Surfaces
+
+The repository also covers attack surfaces that tend to become critical once systems move from single-model chat flows to agentic orchestration:
+
+- `agentic-trust-boundaries`: multi-agent orchestration, trust transitivity, and agent-to-agent prompt injection
+- `memory-security`: persistent memory poisoning, episodic memory stores, and long-term cross-session influence
+- `model-supply-chain-security`: model provenance, fine-tune backdoors, poisoned model artifacts, and third-party trust
+- `indirect-prompt-injection`: instructions arriving through documents, web pages, email, and API responses
+- `multimodal-security`: adversarial images, OCR confusion, typographic attacks, and hidden visual instructions
 
 ## What You Get
 
@@ -105,6 +126,7 @@ Each skill is a focused `SKILL.md` with:
 - failure modes and minimum expected outputs
 - references for severity, testing, and cross-language review
 - controls that can be reused across languages and deployment models
+- a `last_reviewed` date in both frontmatter and `skills.json`
 
 ## Skill Map
 
@@ -115,9 +137,19 @@ Each skill is a focused `SKILL.md` with:
 | `tool-use-execution-security` | Function authorization, schema validation, sandboxing, least privilege |
 | `system-infrastructure-security` | Logging, auditing, throttling, runtime hardening, operational controls |
 | `data-leakage-prevention` | Redaction, tenant isolation, retention, egress and observability leakage controls |
+| `agentic-trust-boundaries` | Multi-agent trust separation, delegation safety, cross-agent containment |
+| `memory-security` | Memory poisoning, retention, retrieval scope, persistent influence containment |
+| `model-supply-chain-security` | Model provenance, backdoors, trojans, third-party model trust |
+| `indirect-prompt-injection` | Untrusted content ingestion from documents, web, email, and APIs |
+| `multimodal-security` | Vision/OCR trust boundaries, hidden text, adversarial image handling |
+| `ai-governance-and-incident-response` | Model versioning, rollback, change approval, regulated audit logging, AI incident response |
+| `dspy-program-security` | DSPy signature, optimizer, evaluation, and tool-wrapper hardening |
+| `haystack-rag-security` | Haystack pipeline, router, retriever, and document-store controls |
 | `langchain-rag-security` | LangChain-specific RAG attack surface and mitigations |
 | `llamaindex-rag-security` | LlamaIndex-specific retrieval and context security controls |
 | `semantic-kernel-tool-security` | Semantic Kernel plugin and tool execution hardening |
+| `openai-responses-tool-file-security` | OpenAI Responses API tool-calling, file-search, and conversation-state hardening |
+| `openai-assistants-legacy-security` | Legacy Assistants API thread, run, tool, and attachment isolation review |
 
 ## Quick Start
 
@@ -139,6 +171,12 @@ Validate the repository:
 python3 scripts/validate_repo.py
 ```
 
+This validates:
+
+- `skills.json` structure, control severity metadata, and `last_reviewed` dates
+- `SKILL.md` frontmatter consistency
+- adversarial fixture structure in `tests/adversarial-fixtures/`
+
 Inspect the machine-readable index:
 
 ```bash
@@ -158,17 +196,45 @@ Start with the foundational controls, then move deeper into retrieval and execut
 Then add framework-specific depth where needed:
 
 ```bash
+./scripts/fetch-skill.sh dspy-program-security
+./scripts/fetch-skill.sh haystack-rag-security
 ./scripts/fetch-skill.sh langchain-rag-security
 ./scripts/fetch-skill.sh semantic-kernel-tool-security
+./scripts/fetch-skill.sh openai-responses-tool-file-security
+```
+
+For agentic systems, add the dedicated high-severity surfaces early:
+
+```bash
+./scripts/fetch-skill.sh agentic-trust-boundaries
+./scripts/fetch-skill.sh memory-security
+./scripts/fetch-skill.sh indirect-prompt-injection
+```
+
+For enterprise production rollouts, add governance and operations controls:
+
+```bash
+./scripts/fetch-skill.sh ai-governance-and-incident-response
+./scripts/fetch-skill.sh system-infrastructure-security
 ```
 
 ## Repository Layout
 
 ```text
 skills/
+  agentic-trust-boundaries/
   core-llm-prompt-security/
   rag-security/
   data-leakage-prevention/
+  ai-governance-and-incident-response/
+  dspy-program-security/
+  haystack-rag-security/
+  indirect-prompt-injection/
+  memory-security/
+  model-supply-chain-security/
+  multimodal-security/
+  openai-assistants-legacy-security/
+  openai-responses-tool-file-security/
   tool-use-execution-security/
   system-infrastructure-security/
   langchain-rag-security/
@@ -182,28 +248,38 @@ scripts/
   fetch-skill.sh
   list-skills.sh
   validate_repo.py
+tests/
+  adversarial-fixtures/
+    *.json
 skills.json
+ROADMAP.md
 ```
 
 ## Design Principles
 
 - Threat-model first, framework second
 - Treat prompts and retrieved context as untrusted input
+- Treat agent outputs, memories, and model artifacts as untrusted inputs too
 - Use deterministic controls around model behavior
 - Reduce blast radius through isolation and validation
 - Make testing, monitoring, and governance part of the default workflow
+- Treat model releases, prompt changes, and incident playbooks as security-controlled assets
 
 ## Scope
 
 The skills are written to support:
 
 - Python, JavaScript/TypeScript, Java, Go, Rust, C#, Ruby, and Kotlin
-- LangChain, LlamaIndex, Semantic Kernel, Haystack, DSPy, custom agent stacks, and direct SDK usage
+- LangChain, LlamaIndex, Semantic Kernel, Haystack, DSPy, OpenAI-hosted APIs, custom agent stacks, and direct SDK usage
 - API, web, worker, batch, and self-hosted deployment patterns
 
 ## Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR. New skills should stay focused, composable, and tied to a concrete attack surface or operational control.
+
+## Roadmap
+
+Read [ROADMAP.md](ROADMAP.md) for planned skills, unowned attack surfaces, and larger investments that are not yet implemented in the repository.
 
 ## Security
 

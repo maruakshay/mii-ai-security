@@ -1,11 +1,19 @@
 ---
 name: data-leakage-prevention
 description: Review an AI system for leakage of secrets, PII, tenant data, hidden prompts, embeddings, logs, traces, memory, evaluation sets, and training artifacts across languages, frameworks, and deployment models.
+last_reviewed: 2026-04-27
 ---
 
 # Data Leakage Prevention
 
 Use this skill as a companion deep-dive when leakage risk spans prompts, retrieval, memory, logging, analytics, training, or infrastructure. It expands the `Gatekeeper` control from RAG and the auditing constraints from system security.
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including prompts, retrieved chunks, memory entries, logs, traces, exports, and datasets, for sensitivity and authorization fit.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by ensuring only approved users, tenants, sessions, and workflows can access specific classes of data.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot cascade through memory, observability, analytics, or training pipelines into broad data disclosure.
+- Enforce: I use deterministic code such as redaction pipelines, schema checks, access policy evaluation, and export validation to prevent leakage instead of trusting model behavior or operator discipline.
 
 ## Core Leakage Controls
 

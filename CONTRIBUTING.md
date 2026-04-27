@@ -21,6 +21,9 @@ This repository is useful only if the guidance stays correct, small, and reusabl
 
 - Add or update the relevant `SKILL.md`
 - Update `skills.json` when adding a skill
+- Update `last_reviewed` metadata for any modified skill
+- Update control severity metadata in `skills.json` when adding or changing controls
+- Add or refresh adversarial fixtures when prompt-injection guidance changes
 - Run `python3 scripts/validate_repo.py`
 - Verify `./scripts/fetch-skill.sh <skill-id>` works
 - Explain the concrete threat model or attack surface the change addresses

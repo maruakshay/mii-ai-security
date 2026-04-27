@@ -1,11 +1,19 @@
 ---
 name: tool-use-execution-security
 description: Review an agentic AI system for insecure tool calling, unsafe code or shell execution, excessive permissions, confirmation bypass, argument injection, sandbox escape risk, and action-policy failures across languages and frameworks.
+last_reviewed: 2026-04-27
 ---
 
 # Tool Use And Execution Security
 
 Use this skill when the model can call functions, access APIs, execute code, manipulate files, browse, or take external actions. This section applies to agentic systems with tool or function calling.
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including tool names, function arguments, tool outputs, confirmation state, and any model-produced action request.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by limiting which tools exist, which users can invoke them, and what parameters and resources each tool can touch.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot reach the host, core system, or primary data store without crossing sandbox and authorization boundaries.
+- Enforce: I use deterministic code such as Pydantic, JSON schema validation, allowlists, and policy engines to validate model output and tool arguments before execution, never trusting generated format alone.
 
 ## 3.1 Function Calling Authorization (The Permission Slip)
 

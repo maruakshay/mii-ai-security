@@ -1,6 +1,7 @@
 ---
 name: semantic-kernel-tool-security
 description: Review a Semantic Kernel agent or planner for unauthorized plugin execution, unsafe function routing, excessive connector permissions, missing argument validation, insecure memory use, and weak sandboxing around code or action execution.
+last_reviewed: 2026-04-27
 ---
 
 # Semantic Kernel Tool Security
@@ -12,6 +13,13 @@ Use this skill when the target system uses Semantic Kernel plugins, planners, fu
 - Native and prompt-based plugins, function registration, and plugin exposure rules
 - Planners, automatic function calling, kernel arguments, filters, and memory connectors
 - Connectors to files, HTTP APIs, databases, enterprise systems, and code execution surfaces
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including `KernelArguments`, planner output, plugin parameters, connector responses, and any model-proposed action.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by limiting registered plugins, connector permissions, planner reach, and environment-specific function exposure.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot escape from Semantic Kernel plugins or connectors into the host, core system, or sensitive data stores.
+- Enforce: I use deterministic code such as typed plugin contracts, JSON schema validation, policy filters, and explicit allowlists to validate Semantic Kernel output and invocation paths before execution.
 
 ## 3.1 Function Calling Authorization In Semantic Kernel
 

@@ -1,11 +1,19 @@
 ---
 name: core-llm-prompt-security
 description: Review the core prompt layer of an LLM application for prompt injection, jailbreaks, system prompt exposure, weak guardrails, unsafe output handling, and trust-boundary failures across any language or framework.
+last_reviewed: 2026-04-27
 ---
 
 # Core LLM Prompt Security
 
 Use this skill when the main risk is in prompt construction, model instruction hierarchy, or output handling. This section hardens the input and output streams of the LLM itself.
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including user text, chat history, retrieved content, uploaded files, tool output, and prior model output.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by separating trusted instructions from untrusted context and limiting what external context can influence the prompt.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot directly reach core services, privileged tools, or sensitive data paths.
+- Enforce: I use deterministic code such as Pydantic, JSON schema validation, and strict parsers to validate model output and downstream actions instead of trusting generated format or intent.
 
 ## 1.1 Prompt Injection Defense (The Guard Rail)
 

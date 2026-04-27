@@ -1,4 +1,4 @@
-name: Validate
+name: Validate Repository
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Validate repo manifest and skills
+      - name: Validate manifest, skills, and adversarial fixtures
         run: python3 scripts/validate_repo.py
 
       - name: Check helper scripts

@@ -1,6 +1,7 @@
 ---
 name: langchain-rag-security
 description: Review a LangChain retrieval augmented generation stack for document poisoning, retriever scope failures, insecure chain composition, weak citation grounding, metadata filter bypass, and leakage from callbacks, memory, or intermediate steps.
+last_reviewed: 2026-04-27
 ---
 
 # LangChain RAG Security
@@ -13,6 +14,13 @@ Use this skill when the target system uses LangChain retrievers, chains, agents,
 - `ConversationalRetrievalChain`, `RetrievalQA`, LCEL graphs, and custom chain composition
 - Document loaders, text splitters, embeddings, vector stores, rerankers, and callback handlers
 - Memory, chat history injection, intermediate steps, and tracing outputs
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including LangChain `Document` objects, metadata filters, callback payloads, memory state, and final prompt inputs.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by constraining retrievers, filters, chain composition, and memory use to the approved source set and tenant context.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot pivot through LangChain callbacks, agents, tools, or vector-store integrations into the core system or data store.
+- Enforce: I use deterministic code such as server-side filter checks, citation verification, schema validation, and typed chain outputs to validate what LangChain passes and returns, never trusting model-shaped structure by itself.
 
 ## 2.1 Source Grounding And Hallucination Mitigation In LangChain
 

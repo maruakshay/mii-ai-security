@@ -1,11 +1,19 @@
 ---
 name: system-infrastructure-security
 description: Review the system and infrastructure around an AI application for secret handling, network exposure, runtime isolation, model and dependency supply chain risk, weak observability controls, and deployment misconfiguration across cloud and self-hosted environments.
+last_reviewed: 2026-04-27
 ---
 
 # System And Infrastructure Security
 
 Use this skill when the risk is in the runtime, deployment, network, identity, supply chain, or operational controls surrounding the AI system. These controls are not LLM-specific, but they determine whether the application is defensible in production.
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including requests, identities, network traffic, dependency sources, audit events, and configuration changes.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by constraining network paths, service identities, runtime permissions, and observability access.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot move laterally into core infrastructure, secrets, or primary data stores.
+- Enforce: I use deterministic code and platform controls such as IAM policy, admission rules, schema-checked config, and structured audit validation instead of relying on prompt policy or operator intent.
 
 ## 4.1 Rate Limiting And Throttling
 

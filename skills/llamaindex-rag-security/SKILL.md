@@ -1,6 +1,7 @@
 ---
 name: llamaindex-rag-security
 description: Review a LlamaIndex retrieval augmented generation stack for ingestion poisoning, node metadata loss, retriever scope failures, insecure query-engine composition, weak source attribution, and leakage through storage, memory, or observability layers.
+last_reviewed: 2026-04-27
 ---
 
 # LlamaIndex RAG Security
@@ -12,6 +13,13 @@ Use this skill when the target system uses LlamaIndex for ingestion, indexing, r
 - Readers, parsers, node creation, embeddings, index construction, and storage context
 - `RetrieverQueryEngine`, router query engines, agents, response synthesizers, and postprocessors
 - Metadata filters, node references, citation support, memory, and observability paths
+
+## Control Lens
+
+- Validate: I check every piece of data coming into the system, including parsed nodes, metadata, storage context contents, retriever output, postprocessor changes, and synthesized response inputs.
+- Scope: I define and enforce the boundaries of the LLM's knowledge and actions by limiting which nodes, indexes, query engines, and metadata scopes can contribute to an answer.
+- Isolate: I ensure that if the LLM fails or is attacked, the failure is contained and cannot spread from poisoned nodes, broad query routing, or memory leakage into unrestricted access to the core system or data store.
+- Enforce: I use deterministic code such as metadata validation, citation mapping, deletion checks, and schema-validated response handling instead of trusting the model or synthesizer to preserve boundaries on its own.
 
 ## 2.1 Source Grounding And Hallucination Mitigation In LlamaIndex
 
