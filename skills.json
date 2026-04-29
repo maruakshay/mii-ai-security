@@ -214,6 +214,46 @@
         }
       ],
       "supports": ["4.2 Logging and Auditing"]
+    },
+    {
+      "id": "fine-tuning-security",
+      "title": "Fine-Tuning Security",
+      "path": "skills/fine-tuning-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["fine-tuning", "data-poisoning", "backdoor-triggers", "rlhf", "training-data", "adapters"],
+      "controls": [
+        {
+          "id": "FTS.1",
+          "title": "Training Data Provenance and Poisoning Defense",
+          "severity": "critical"
+        },
+        {
+          "id": "FTS.2",
+          "title": "Backdoor Trigger Detection and Behavioral Baseline Enforcement",
+          "severity": "critical"
+        }
+      ],
+      "supports": ["MSC.1 Model Provenance and Integrity", "MSC.2 Backdoor and Trojan Exposure Review", "GOV.1 Model and Guardrail Change Governance"]
+    },
+    {
+      "id": "embedding-attack-security",
+      "title": "Embedding Attack Security",
+      "path": "skills/embedding-attack-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["embeddings", "vector-db", "poisoning", "inversion", "adversarial-perturbation", "retrieval"],
+      "controls": [
+        {
+          "id": "EAS.1",
+          "title": "Vector Database Poisoning Defense",
+          "severity": "critical"
+        },
+        {
+          "id": "EAS.2",
+          "title": "Embedding Inversion and Leakage Prevention",
+          "severity": "high"
+        }
+      ],
+      "supports": ["2.1 Source Grounding and Hallucination Mitigation", "2.2 Data Leakage Prevention", "IPI.1 Untrusted Content Labeling and Filtering"]
     }
   ],
   "framework_subskills": [
@@ -360,6 +400,425 @@
         {
           "id": "3.2",
           "title": "Thread, Run, and Attachment Isolation in Assistants API",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "autogen-multiagent-security",
+      "title": "AutoGen Multi-Agent Security",
+      "path": "skills/autogen-multiagent-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "framework": "AutoGen",
+      "extends": "agentic-trust-boundaries",
+      "tags": ["autogen", "multi-agent", "message-spoofing", "code-execution", "orchestrator"],
+      "controls": [
+        {
+          "id": "AMS.1",
+          "title": "Inter-Agent Message Trust Separation",
+          "severity": "critical"
+        },
+        {
+          "id": "AMS.2",
+          "title": "Code Execution Containment",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "crewai-agent-security",
+      "title": "CrewAI Agent Security",
+      "path": "skills/crewai-agent-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "framework": "CrewAI",
+      "extends": "agentic-trust-boundaries",
+      "tags": ["crewai", "role-boundaries", "task-delegation", "tool-scope", "shared-context"],
+      "controls": [
+        {
+          "id": "CAS.1",
+          "title": "Tool Scope Isolation Per Agent",
+          "severity": "high"
+        },
+        {
+          "id": "CAS.2",
+          "title": "Shared Context and Task Description Injection Defense",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "llamafile-local-model-security",
+      "title": "Llamafile Local Model Security",
+      "path": "skills/llamafile-local-model-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "framework": "llamafile",
+      "extends": "system-infrastructure-security",
+      "tags": ["llamafile", "local-inference", "gguf", "http-server", "artifact-integrity"],
+      "controls": [
+        {
+          "id": "LLF.1",
+          "title": "Model Artifact Integrity and Provenance",
+          "severity": "high"
+        },
+        {
+          "id": "LLF.2",
+          "title": "HTTP Server Exposure and Access Control",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "ollama-security",
+      "title": "Ollama Security",
+      "path": "skills/ollama-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "framework": "Ollama",
+      "extends": "system-infrastructure-security",
+      "tags": ["ollama", "local-inference", "api-exposure", "cors", "model-pull"],
+      "controls": [
+        {
+          "id": "OLS.1",
+          "title": "API Exposure and Authentication Enforcement",
+          "severity": "critical"
+        },
+        {
+          "id": "OLS.2",
+          "title": "Model Registry and Pull Authorization",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "litellm-proxy-security",
+      "title": "LiteLLM Proxy Security",
+      "path": "skills/litellm-proxy-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "framework": "LiteLLM",
+      "extends": "system-infrastructure-security",
+      "tags": ["litellm", "proxy", "api-key-leakage", "virtual-keys", "budget-enforcement"],
+      "controls": [
+        {
+          "id": "LPS.1",
+          "title": "API Key Management and Config Hardening",
+          "severity": "critical"
+        },
+        {
+          "id": "LPS.2",
+          "title": "Virtual Key Scoping and Budget Enforcement",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "guardrails-ai-security",
+      "title": "Guardrails AI Security",
+      "path": "skills/guardrails-ai-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "framework": "Guardrails AI",
+      "extends": "core-llm-prompt-security",
+      "tags": ["guardrails-ai", "validator-bypass", "fail-open", "schema-enforcement", "on-fail"],
+      "controls": [
+        {
+          "id": "GAS.1",
+          "title": "Validator Configuration and Fail-Open Prevention",
+          "severity": "high"
+        },
+        {
+          "id": "GAS.2",
+          "title": "Schema Enforcement and Free-Form Field Containment",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "nemo-guardrails-security",
+      "title": "NeMo Guardrails Security",
+      "path": "skills/nemo-guardrails-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "framework": "NeMo Guardrails",
+      "extends": "core-llm-prompt-security",
+      "tags": ["nemo-guardrails", "colang", "rail-evasion", "action-server", "dialog-control"],
+      "controls": [
+        {
+          "id": "NGS.1",
+          "title": "Rail Evasion and Secondary Output Filtering",
+          "severity": "high"
+        },
+        {
+          "id": "NGS.2",
+          "title": "Colang Configuration Integrity and Action Server Security",
+          "severity": "high"
+        }
+      ]
+    }
+  ],
+  "attack_surface_skills": [
+    {
+      "id": "prompt-injection-red-teaming",
+      "title": "Prompt Injection Red-Teaming",
+      "path": "skills/prompt-injection-red-teaming/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["red-teaming", "offensive-eval", "probe-library", "bypass-rate", "ci-integration"],
+      "controls": [
+        {
+          "id": "PIR.1",
+          "title": "Systematic Attack Suite Design and Execution",
+          "severity": "high"
+        },
+        {
+          "id": "PIR.2",
+          "title": "Continuous Evaluation and Gating",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "jailbreak-taxonomy",
+      "title": "Jailbreak Taxonomy",
+      "path": "skills/jailbreak-taxonomy/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["jailbreaks", "persona-adoption", "fictional-framing", "authority-impersonation", "gradual-escalation"],
+      "controls": [
+        {
+          "id": "JBT.1",
+          "title": "Technique Catalog and Defense Mapping",
+          "severity": "high"
+        },
+        {
+          "id": "JBT.2",
+          "title": "Detection Signatures and Escalation",
+          "severity": "medium"
+        }
+      ]
+    },
+    {
+      "id": "adversarial-robustness",
+      "title": "Adversarial Robustness",
+      "path": "skills/adversarial-robustness/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["adversarial", "evasion", "unicode-normalization", "homoglyphs", "classifier-robustness"],
+      "controls": [
+        {
+          "id": "ARB.1",
+          "title": "Input Normalization and Perturbation Surface Reduction",
+          "severity": "high"
+        },
+        {
+          "id": "ARB.2",
+          "title": "Robustness Evaluation and Defense-in-Depth",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "model-inversion-membership-inference",
+      "title": "Model Inversion and Membership Inference",
+      "path": "skills/model-inversion-membership-inference/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["model-inversion", "membership-inference", "memorization", "differential-privacy", "logprobs"],
+      "controls": [
+        {
+          "id": "MIM.1",
+          "title": "Memorization Audit and Training Data Controls",
+          "severity": "critical"
+        },
+        {
+          "id": "MIM.2",
+          "title": "API Surface Hardening Against Extraction Queries",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "federated-learning-security",
+      "title": "Federated Learning Security",
+      "path": "skills/federated-learning-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["federated-learning", "gradient-poisoning", "byzantine-fault", "secure-aggregation", "gradient-inversion"],
+      "controls": [
+        {
+          "id": "FLS.1",
+          "title": "Participant Update Validation and Byzantine-Robust Aggregation",
+          "severity": "critical"
+        },
+        {
+          "id": "FLS.2",
+          "title": "Gradient Privacy and Aggregation Server Hardening",
+          "severity": "high"
+        }
+      ]
+    }
+  ],
+  "infra_ops_skills": [
+    {
+      "id": "mlops-pipeline-security",
+      "title": "MLOps Pipeline Security",
+      "path": "skills/mlops-pipeline-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["mlops", "ci-cd", "artifact-signing", "pipeline-lineage", "registry-access"],
+      "controls": [
+        {
+          "id": "MPS.1",
+          "title": "Artifact Integrity and Pipeline Lineage",
+          "severity": "high"
+        },
+        {
+          "id": "MPS.2",
+          "title": "Least-Privilege Pipeline Execution and Registry Access Control",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "gpu-infrastructure-security",
+      "title": "GPU Infrastructure Security",
+      "path": "skills/gpu-infrastructure-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["gpu", "vram", "shared-tenancy", "imds", "cuda-isolation"],
+      "controls": [
+        {
+          "id": "GIS.1",
+          "title": "VRAM Isolation and Memory Clearing",
+          "severity": "high"
+        },
+        {
+          "id": "GIS.2",
+          "title": "Credential Isolation in GPU Compute Environments",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "model-serving-security",
+      "title": "Model Serving Security",
+      "path": "skills/model-serving-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["model-serving", "rate-limiting", "token-exhaustion", "ssrf", "api-gateway"],
+      "controls": [
+        {
+          "id": "MSV.1",
+          "title": "Request Parameter Bounding and Rate Limiting",
+          "severity": "high"
+        },
+        {
+          "id": "MSV.2",
+          "title": "SSRF Prevention and Output URL Handling",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "container-ai-workload-security",
+      "title": "Container AI Workload Security",
+      "path": "skills/container-ai-workload-security/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["containers", "kubernetes", "privileged-mode", "gpu-device-plugin", "secrets-management"],
+      "controls": [
+        {
+          "id": "CAW.1",
+          "title": "Container Privilege Reduction and GPU Access",
+          "severity": "critical"
+        },
+        {
+          "id": "CAW.2",
+          "title": "Secrets Management and Model Weight Volume Security",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "secrets-in-prompts-detection",
+      "title": "Secrets in Prompts Detection",
+      "path": "skills/secrets-in-prompts-detection/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["secrets", "credentials", "system-prompt", "rag-corpus", "output-scanning"],
+      "controls": [
+        {
+          "id": "SPD.1",
+          "title": "System Prompt and RAG Corpus Secret Scanning",
+          "severity": "critical"
+        },
+        {
+          "id": "SPD.2",
+          "title": "Output Secret Scanning and Exfiltration Prevention",
+          "severity": "high"
+        }
+      ]
+    }
+  ],
+  "compliance_governance_skills": [
+    {
+      "id": "ai-audit-logging",
+      "title": "AI Audit Logging",
+      "path": "skills/ai-audit-logging/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["audit-logging", "tamper-resistance", "log-schema", "retention", "worm-storage"],
+      "controls": [
+        {
+          "id": "AAL.1",
+          "title": "AI Event Schema and Log Completeness",
+          "severity": "high"
+        },
+        {
+          "id": "AAL.2",
+          "title": "Tamper-Resistance and Retention",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "ai-red-team-program",
+      "title": "AI Red Team Program",
+      "path": "skills/ai-red-team-program/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["red-team", "program-design", "scenario-library", "continuous-evaluation", "finding-severity"],
+      "controls": [
+        {
+          "id": "ART.1",
+          "title": "Program Structure and Continuous Engagement Model",
+          "severity": "high"
+        },
+        {
+          "id": "ART.2",
+          "title": "Attack Scenario Library and Finding Documentation",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "third-party-model-risk",
+      "title": "Third-Party Model Risk",
+      "path": "skills/third-party-model-risk/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["vendor-risk", "dpa", "model-drift", "fallback-provider", "sla"],
+      "controls": [
+        {
+          "id": "TPR.1",
+          "title": "Vendor Due Diligence and Contractual Controls",
+          "severity": "high"
+        },
+        {
+          "id": "TPR.2",
+          "title": "Behavioral Monitoring and Fallback Planning",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "ai-privacy-pii-compliance",
+      "title": "AI Privacy and PII Compliance",
+      "path": "skills/ai-privacy-pii-compliance/SKILL.md",
+      "last_reviewed": "2026-04-29",
+      "tags": ["gdpr", "ccpa", "dpia", "data-subject-rights", "cross-border-transfer", "pii"],
+      "controls": [
+        {
+          "id": "APC.1",
+          "title": "Lawful Basis, Data Classification, and Cross-Border Transfers",
+          "severity": "critical"
+        },
+        {
+          "id": "APC.2",
+          "title": "Data Subject Rights and PII in AI Outputs",
           "severity": "high"
         }
       ]

@@ -29,7 +29,14 @@ def load_json(path: Path) -> dict:
 
 
 def skill_entries(data: dict):
-    for group in ("primary_sections", "companion_skills", "framework_subskills"):
+    for group in (
+        "primary_sections",
+        "companion_skills",
+        "framework_subskills",
+        "attack_surface_skills",
+        "infra_ops_skills",
+        "compliance_governance_skills",
+    ):
         for entry in data.get(group, []):
             yield group, entry
 

@@ -1,6 +1,6 @@
 {
   "name": "miii-security",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Security-focused `SKILL.md` packs for reviewing and hardening LLM systems.",
   "homepage": "https://github.com/maruakshay/mii-ai-security#readme",
   "bugs": {
