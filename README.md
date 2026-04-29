@@ -1,5 +1,10 @@
 # mii-ai-security
 
+[![npm version](https://img.shields.io/npm/v/miii-security)](https://www.npmjs.com/package/miii-security)
+[![npm downloads](https://img.shields.io/npm/dm/miii-security)](https://www.npmjs.com/package/miii-security)
+[![GitHub](https://img.shields.io/github/stars/maruakshay/mii-ai-security?style=social)](https://github.com/maruakshay/mii-ai-security)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Security-focused `SKILL.md` packs for reviewing and hardening LLM systems.
 
 This repo is meant to be simple to use:
@@ -39,6 +44,8 @@ The repository currently ships 18 skills across four buckets:
 - `openai-assistants-legacy-security`
 
 ## Quick Start
+
+Install via npm: [`miii-security`](https://www.npmjs.com/package/miii-security) · Source: [`maruakshay/mii-ai-security`](https://github.com/maruakshay/mii-ai-security)
 
 Add a skill to your project (no clone needed):
 
