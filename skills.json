@@ -649,6 +649,341 @@
       ]
     }
   ],
+  "runtime_deployment_skills": [
+    {
+      "id": "model-watermarking-fingerprinting",
+      "title": "Model Watermarking and Fingerprinting",
+      "path": "skills/model-watermarking-fingerprinting/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["watermarking", "fingerprinting", "model-theft", "distillation-detection", "provenance"],
+      "controls": [
+        {
+          "id": "MWF.1",
+          "title": "Behavioral Fingerprinting and Watermark Embedding",
+          "severity": "high"
+        },
+        {
+          "id": "MWF.2",
+          "title": "Extraction Detection and Provenance Response",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "inference-api-abuse-prevention",
+      "title": "Inference API Abuse Prevention",
+      "path": "skills/inference-api-abuse-prevention/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["credential-stuffing", "rate-limiting", "quota-bypass", "api-abuse", "token-budget"],
+      "controls": [
+        {
+          "id": "IAP.1",
+          "title": "Credential Abuse Detection and Key Hygiene",
+          "severity": "high"
+        },
+        {
+          "id": "IAP.2",
+          "title": "Rate Limiting and Quota Enforcement",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "model-caching-security",
+      "title": "Model Caching Security",
+      "path": "skills/model-caching-security/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["kv-cache", "prompt-cache", "semantic-cache", "cache-poisoning", "timing-side-channel"],
+      "controls": [
+        {
+          "id": "MCS.1",
+          "title": "Cache Key Isolation and Tenant Scoping",
+          "severity": "high"
+        },
+        {
+          "id": "MCS.2",
+          "title": "Timing Side-Channel Mitigation",
+          "severity": "medium"
+        }
+      ]
+    }
+  ],
+  "agentic_multiagent_skills": [
+    {
+      "id": "agent-memory-poisoning",
+      "title": "Agent Memory Poisoning",
+      "path": "skills/agent-memory-poisoning/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["memory-poisoning", "vector-db", "cross-session", "persistent-injection", "write-gate"],
+      "controls": [
+        {
+          "id": "AMP.1",
+          "title": "Memory Write Gate and Instruction Filtering",
+          "severity": "critical"
+        },
+        {
+          "id": "AMP.2",
+          "title": "Vector DB Isolation and Retrieval Integrity",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "tool-schema-validation-security",
+      "title": "Tool Schema Validation Security",
+      "path": "skills/tool-schema-validation-security/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["tool-schema", "schema-injection", "parameter-confusion", "tool-collision", "mcp-security"],
+      "controls": [
+        {
+          "id": "TSV.1",
+          "title": "Schema Registry and Tool Name Integrity",
+          "severity": "high"
+        },
+        {
+          "id": "TSV.2",
+          "title": "Parameter Validation and Argument Sanitization",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "human-in-the-loop-bypass",
+      "title": "Human-in-the-Loop Bypass",
+      "path": "skills/human-in-the-loop-bypass/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["hitl", "approval-bypass", "context-manipulation", "approval-fatigue", "deferred-execution"],
+      "controls": [
+        {
+          "id": "HIL.1",
+          "title": "Approval Context Integrity",
+          "severity": "critical"
+        },
+        {
+          "id": "HIL.2",
+          "title": "Approval Scope Containment and Anti-Fatigue",
+          "severity": "high"
+        }
+      ]
+    }
+  ],
+  "data_pipeline_skills": [
+    {
+      "id": "training-data-poisoning",
+      "title": "Training Data Poisoning",
+      "path": "skills/training-data-poisoning/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["data-poisoning", "backdoor-triggers", "label-flipping", "sleeper-agents", "training-pipeline"],
+      "controls": [
+        {
+          "id": "TDP.1",
+          "title": "Data Provenance and Collection Pipeline Controls",
+          "severity": "critical"
+        },
+        {
+          "id": "TDP.2",
+          "title": "Backdoor Detection and Behavioral Baseline Enforcement",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "dataset-supply-chain-security",
+      "title": "Dataset Supply Chain Security",
+      "path": "skills/dataset-supply-chain-security/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["dataset-integrity", "huggingface", "typosquatting", "dependency-confusion", "dataset-pinning"],
+      "controls": [
+        {
+          "id": "DSS.1",
+          "title": "Dataset Pinning and Integrity Verification",
+          "severity": "high"
+        },
+        {
+          "id": "DSS.2",
+          "title": "Third-Party Dataset Vetting and HuggingFace-Specific Risks",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "synthetic-data-security",
+      "title": "Synthetic Data Security",
+      "path": "skills/synthetic-data-security/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["synthetic-data", "distillation-attack", "model-collapse", "privacy-amplification", "feedback-loops"],
+      "controls": [
+        {
+          "id": "SDS.1",
+          "title": "Synthetic Data Quality and Privacy Controls",
+          "severity": "high"
+        },
+        {
+          "id": "SDS.2",
+          "title": "Distillation Prevention and Feedback Loop Control",
+          "severity": "high"
+        }
+      ]
+    }
+  ],
+  "identity_authz_skills": [
+    {
+      "id": "ai-agent-identity-authz",
+      "title": "AI Agent Identity and Authorization",
+      "path": "skills/ai-agent-identity-authz/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["agent-identity", "impersonation", "capability-escalation", "authorization", "signed-messages"],
+      "controls": [
+        {
+          "id": "AIA.1",
+          "title": "Agent Identity Primitives and Verification",
+          "severity": "critical"
+        },
+        {
+          "id": "AIA.2",
+          "title": "Capability Grant Enforcement and Escalation Prevention",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "multi-tenant-model-isolation",
+      "title": "Multi-Tenant Model Isolation",
+      "path": "skills/multi-tenant-model-isolation/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["multi-tenancy", "context-leakage", "lora-contamination", "kv-cache-isolation", "system-prompt-bleed"],
+      "controls": [
+        {
+          "id": "MTI.1",
+          "title": "Inference Worker Isolation and Context Flushing",
+          "severity": "critical"
+        },
+        {
+          "id": "MTI.2",
+          "title": "Data Layer Tenant Scoping",
+          "severity": "critical"
+        }
+      ]
+    }
+  ],
+  "evasion_detection_skills": [
+    {
+      "id": "ai-content-authenticity",
+      "title": "AI Content Authenticity",
+      "path": "skills/ai-content-authenticity/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["deepfake-detection", "c2pa", "provenance", "synthetic-media", "watermark-stripping"],
+      "controls": [
+        {
+          "id": "ACA.1",
+          "title": "C2PA Provenance Implementation and Verification",
+          "severity": "high"
+        },
+        {
+          "id": "ACA.2",
+          "title": "Detection Signal Diversity and Adversarial Robustness",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "output-fingerprinting-detection",
+      "title": "Output Fingerprinting and Detection",
+      "path": "skills/output-fingerprinting-detection/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["stylometry", "model-attribution", "user-attribution", "logprobs", "detection-evasion"],
+      "controls": [
+        {
+          "id": "OFD.1",
+          "title": "Model Signature Exposure and Attribution Risk",
+          "severity": "medium"
+        },
+        {
+          "id": "OFD.2",
+          "title": "User Attribution and Privacy Protection",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "ai-assisted-social-engineering",
+      "title": "AI-Assisted Social Engineering",
+      "path": "skills/ai-assisted-social-engineering/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["spearphishing", "voice-cloning", "synthetic-identity", "deepfake-executive", "bec"],
+      "controls": [
+        {
+          "id": "ASE.1",
+          "title": "AI Impersonation Detection and Verification Protocols",
+          "severity": "critical"
+        },
+        {
+          "id": "ASE.2",
+          "title": "Synthetic Identity and AI Reconnaissance Defense",
+          "severity": "high"
+        }
+      ]
+    }
+  ],
+  "emerging_skills": [
+    {
+      "id": "llm-dos-resource-exhaustion",
+      "title": "LLM DoS and Resource Exhaustion",
+      "path": "skills/llm-dos-resource-exhaustion/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["token-flooding", "recursive-expansion", "sponge-attacks", "circuit-breaker", "resource-exhaustion"],
+      "controls": [
+        {
+          "id": "LDR.1",
+          "title": "Request Bounding and Sponge Attack Mitigation",
+          "severity": "high"
+        },
+        {
+          "id": "LDR.2",
+          "title": "Recursive Expansion and Loop Detection",
+          "severity": "high"
+        }
+      ]
+    },
+    {
+      "id": "multiagent-coordination-attacks",
+      "title": "Multi-Agent Coordination Attacks",
+      "path": "skills/multiagent-coordination-attacks/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["byzantine-agents", "consensus-manipulation", "coordinated-deception", "robust-aggregation", "orchestrator-manipulation"],
+      "controls": [
+        {
+          "id": "MAC.1",
+          "title": "Byzantine Fault Detection and Robust Aggregation",
+          "severity": "high"
+        },
+        {
+          "id": "MAC.2",
+          "title": "Orchestrator Manipulation Prevention",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "browser-agent-security",
+      "title": "Browser Agent Security",
+      "path": "skills/browser-agent-security/SKILL.md",
+      "last_reviewed": "2026-04-30",
+      "tags": ["dom-injection", "credential-harvesting", "web-agent", "prompt-injection", "form-submission"],
+      "controls": [
+        {
+          "id": "BAS.1",
+          "title": "DOM Content Isolation and Prompt Injection Defense",
+          "severity": "critical"
+        },
+        {
+          "id": "BAS.2",
+          "title": "Credential Protection and Action Authorization",
+          "severity": "critical"
+        }
+      ]
+    }
+  ],
   "infra_ops_skills": [
     {
       "id": "mlops-pipeline-security",

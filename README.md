@@ -26,14 +26,20 @@ npx miii-security show fine-tuning-security
 
 ## What's In Scope
 
-41 skills across seven buckets:
+58 skills across twelve buckets:
 
 | Bucket | Count | Coverage |
 |---|---|---|
 | Base | 4 | Prompts, RAG, tools, system infrastructure |
-| Companion | 11 | Memory, governance, leakage, agentic trust, multimodal, model supply chain, indirect injection, fine-tuning, embedding attacks |
-| Framework | 13 | LangChain, LlamaIndex, Haystack, DSPy, Semantic Kernel, OpenAI APIs, AutoGen, CrewAI, llamafile, Ollama, LiteLLM, Guardrails AI, NeMo Guardrails |
+| Companion | 9 | Memory, governance, leakage, agentic trust, multimodal, model supply chain, indirect injection, fine-tuning, embedding attacks |
+| Framework | 14 | LangChain, LlamaIndex, Haystack, DSPy, Semantic Kernel, OpenAI APIs, AutoGen, CrewAI, llamafile, Ollama, LiteLLM, Guardrails AI, NeMo Guardrails |
 | Attack surface | 5 | Red-teaming, jailbreak taxonomy, adversarial robustness, model inversion, federated learning |
+| Runtime/deployment | 3 | Model watermarking, inference API abuse, KV cache security |
+| Agentic/multi-agent | 3 | Memory poisoning, tool schema injection, HITL bypass |
+| Data pipeline | 3 | Training data poisoning, dataset supply chain, synthetic data |
+| Identity/authz | 2 | Agent identity, multi-tenant isolation |
+| Evasion/detection | 3 | Content authenticity, output fingerprinting, AI social engineering |
+| Emerging | 3 | LLM DoS, multi-agent coordination attacks, browser agent security |
 | Infra/ops | 5 | MLOps pipelines, GPU infrastructure, model serving, containers, secrets detection |
 | Compliance/governance | 4 | Audit logging, red team programs, third-party model risk, AI privacy/PII |
 | Test & reference | — | Adversarial fixtures, severity guidance, OWASP/MITRE mappings |
@@ -87,6 +93,35 @@ npx miii-security show fine-tuning-security
 - `container-ai-workload-security`
 - `secrets-in-prompts-detection`
 
+**Runtime/deployment**
+- `model-watermarking-fingerprinting`
+- `inference-api-abuse-prevention`
+- `model-caching-security`
+
+**Agentic/multi-agent**
+- `agent-memory-poisoning`
+- `tool-schema-validation-security`
+- `human-in-the-loop-bypass`
+
+**Data pipeline**
+- `training-data-poisoning`
+- `dataset-supply-chain-security`
+- `synthetic-data-security`
+
+**Identity/authz**
+- `ai-agent-identity-authz`
+- `multi-tenant-model-isolation`
+
+**Evasion/detection**
+- `ai-content-authenticity`
+- `output-fingerprinting-detection`
+- `ai-assisted-social-engineering`
+
+**Emerging**
+- `llm-dos-resource-exhaustion`
+- `multiagent-coordination-attacks`
+- `browser-agent-security`
+
 **Compliance/governance**
 - `ai-audit-logging`
 - `ai-red-team-program`
@@ -124,7 +159,7 @@ Privacy and compliance review:
 ## Repository Layout
 
 ```text
-skills/                      41 SKILL.md files, one directory each
+skills/                      58 SKILL.md files, one directory each
 references/                  severity-and-reporting, test-patterns, framework-mappings
 tests/adversarial-fixtures/  12 JSON fixtures for prompt injection variants
 red-team-scripts/
@@ -137,7 +172,7 @@ skills.json                  machine-readable skill index
 - `skills.json` is the machine-readable index — every skill registered with controls and severity
 - every skill has `last_reviewed` frontmatter
 - every control has a severity (`critical`, `high`, `medium`, `low`)
-- `python3 scripts/validate_repo.py` validates all 41 skills and fixtures
+- `python3 scripts/validate_repo.py` validates all 58 skills and fixtures
 
 ## Key Docs
 
